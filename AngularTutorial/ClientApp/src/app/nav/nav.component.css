@@ -1,0 +1,34 @@
+header {
+  background-color: #7700FF;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+}
+
+
+.logo
+{
+  font-weight: bold;
+}
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  margin-top:30px;
+  padding: 0;
+}
+
+li {
+  float: right;
+}
+
+a {
+  padding: 1.5em;
+  text-transform: uppercase;
+  font-size: .8em;
+}
+
