@@ -4,5 +4,7 @@
     }">Home</h1>
 
 <button (click)="firstClick()">Click me</button>
+<ul>
+  <li *ngFor="let process of processes">{{process.id}} {{process.name}}</li>
+</ul>
 
-<h1> {{processes}} </h1>
