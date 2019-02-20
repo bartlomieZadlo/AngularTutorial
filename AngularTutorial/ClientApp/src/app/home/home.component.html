@@ -5,6 +5,6 @@
 
 <button (click)="firstClick()">Click me</button>
 <ul>
-  <li *ngFor="let process of processes">{{process.id}} {{process.name}}</li>
+  <li (click)="sendData($event)" *ngFor="let process of processes" id="{{process.id}}">{{process.id}} {{process.name}}</li>
 </ul>
 

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AngularTutorial.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Diagnostics;
-using System.ComponentModel;
-
 
 namespace AngularTutorial.Controllers
 {
@@ -28,10 +22,11 @@ namespace AngularTutorial.Controllers
             return toReturn;
         }
 
-        [HttpGet("{name}")]
-        public Cat Get(string name)
+        [HttpGet("{id}")]
+        public SimplifiedProcess Get(string id)
         {
-            return new Cat() { Name = name };
+            Process proccess = Process.GetProcessById(int.Parse(id));
+            return new SimplifiedProcess(proccess);
         }
 
         [HttpPost]
@@ -69,5 +64,22 @@ namespace AngularTutorial.Controllers
             Id = process.Id;
         }
     }
+
+    public class DetailedProcess: SimplifiedProcess
+    {
+        public string StartTime { get; set; }
+        public string Threads { get; set; }
+        public string ProcessorTime { get; set; }
+
+        public DetailedProcess(Process process) : base(process)
+        {
+            StartTime = process.StartTime.ToString("MM/dd/yyyy HH:mm:ss");
+            Threads = process.Threads.ToString();
+            ProcessorTime = process.TotalProcessorTime.ToString();
+        }
+
+    }
+
+    
 }
 
