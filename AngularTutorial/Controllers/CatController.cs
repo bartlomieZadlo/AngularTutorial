@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System;
 
+
 namespace AngularTutorial.Controllers
 {
     [Route("api/[controller]")]
@@ -66,7 +67,7 @@ namespace AngularTutorial.Controllers
         }
     }
 
-    public class DetailedProcess: SimplifiedProcess
+    public class DetailedProcess : SimplifiedProcess
     {
         public string StartTime { get; set; }
         public string Threads { get; set; }
@@ -76,15 +77,28 @@ namespace AngularTutorial.Controllers
 
         public DetailedProcess(Process process) : base(process)
         {
-            StartTime = process.StartTime.ToString("dd/MM/yyyy HH:mm:ss");
-            Threads = process.Threads.ToString();
-            ProcessorTime = process.TotalProcessorTime.ToString();
-            RunTime = (DateTime.Now - process.StartTime).ToString();
-            MemoryUsage = ((double)process.PrivateMemorySize64/1024/1024).ToString("0.0") + " MB";
+            try
+            {
+                StartTime = process.StartTime.ToString("dd/MM/yyyy HH:mm:ss");
+                Threads = process.Threads.ToString();
+                ProcessorTime = process.TotalProcessorTime.ToString();
+                RunTime = (DateTime.Now - process.StartTime).ToString();
+                MemoryUsage = ((double)process.PrivateMemorySize64 / 1024 / 1024).ToString("0.0") + " MB";
+            }
+            catch (System.ComponentModel.Win32Exception e)
+            {
+                Name = e.Message;
+                Id = 0;
+                StartTime = "";
+                ProcessorTime = "";
+                RunTime = "";
+                MemoryUsage = "";
+            }
+
         }
 
     }
 
-    
+
 }
 
