@@ -25,16 +25,19 @@ export class HomeComponent implements OnInit {
 
   firstClick() {
     this.apiClient.get<Process[]>(this.baseUrl + 'api/Cat/').subscribe(result => {
+      console.log("Refreshing");
       this.processes = result;
     }, error => console.error(error));
   }
 
   sendData(event: any) {
-    
-    this.processId = 'api/Cat/' + event.path[1].id;
-    
-    this.apiClient.get<Process>(this.baseUrl + this.processId).subscribe(result => {
+
+    this.processId = 'api/Cat/' + event.path[0].id;
+
+    this.apiClient.get<DetailedProcess>(this.baseUrl + this.processId).subscribe(result => {
+      console.log("Sending detailed info about process " + event.path[0].id);
       console.log(result);
+      this.specificProcess = result;
     }, error => console.error(error));
   }
 }
@@ -44,10 +47,12 @@ export interface Process {
   ProcessName: string;
 }
 
-export interface DetailedProcess{
+export interface DetailedProcess {
   Id: number;
   ProcessName: string;
   StartTime: string;
   ProcessorTime: string;
   Threads: string;
+  RunTime: string;
+  MemoryUsage: string;
 }
