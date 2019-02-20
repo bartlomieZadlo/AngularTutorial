@@ -2,19 +2,51 @@
 
 
 <div class="sidenav">
-  <a (click)="firstClick()">Refresh</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
+  <a href="#" (click)="firstClick()">Refresh</a>
 </div>
 
+
 <div class="container main">
-    <div class="col table-wrapper-scroll-y">
-      <table class="table-striped table-bordered">
-        <tr (click)="sendData($event)" *ngFor="let process of processes" id="{{process.id}}">
-          <td style="width: 25%">{{process.id}}</td>
-          <td style="width: 25%">{{process.name}}</td>
-        </tr>
+  <div class="row">
+    <div class="col-1-3">
+      <ul>
+        <li (click)="sendData($event)" *ngFor="let process of processes" id="{{process.id}}">{{process.name}}</li>
+      </ul>
+    </div>
+    <div class="col-1-3">
+      <table class="table">
+        <thead class="black white-text">
+          <tr>
+            <th scope="col">{{specificProcess.name}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Id </th>
+            <td>{{specificProcess.id}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Start Time </th>
+            <td>{{specificProcess.startTime}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Processor Time </th>
+            <td>{{specificProcess.processorTime}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Threads </th>
+            <td>{{specificProcess.threads}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Runtime </th>
+            <td>{{specificProcess.runTime}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Memory Usage </th>
+            <td>{{specificProcess.memoryUsage}}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
+  </div>
 </div>

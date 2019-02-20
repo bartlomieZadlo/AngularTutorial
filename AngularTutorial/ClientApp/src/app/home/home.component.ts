@@ -31,10 +31,11 @@ export class HomeComponent implements OnInit {
 
   sendData(event: any) {
     
-    this.processId = 'api/Cat/' + event.path[1].id;
-    
-    this.apiClient.get<Process>(this.baseUrl + this.processId).subscribe(result => {
+    this.processId = 'api/Cat/' + event.path[0].id;
+
+    this.apiClient.get<DetailedProcess>(this.baseUrl + this.processId).subscribe(result => {
       console.log(result);
+      this.specificProcess = result;
     }, error => console.error(error));
   }
 }
@@ -50,4 +51,6 @@ export interface DetailedProcess{
   StartTime: string;
   ProcessorTime: string;
   Threads: string;
+  RunTime: string;
+  MemoryUsage: string;
 }

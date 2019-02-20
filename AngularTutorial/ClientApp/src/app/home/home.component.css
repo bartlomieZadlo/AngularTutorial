@@ -1,7 +1,12 @@
-.table-wrapper-scroll-y {
-  width:auto;
-  display: block;
+.row{
+  display:flex;
+  flex-direction:row;
 }
+
+.col-1-3 {
+  margin-left: 2vw;
+}
+
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 160px; /* Set the width of the sidebar */
@@ -31,7 +36,7 @@
 /* Style page content */
 .main {
   margin-left: 160px; /* Same as the width of the sidebar */
-  padding: 0px 10px;
+  max-width:100vw;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
@@ -45,10 +50,37 @@
     }
 }
 
-.table-wrapper-scroll-y {
-  display: block;
-  max-height: 80vh;
-  overflow-y: auto;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-  max-width: 30%;
+
+@import "compass/css3";
+
+* {
+  box-sizing: border-box;
 }
+
+
+ul {
+  overflow: scroll;
+  margin: 0;
+  
+  padding: 0;
+  border: 2px solid #ccc;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  -webkit-overflow-scrolling: touch;
+  max-width:30vw;
+  max-height:80vh;
+  overflow-x:hidden;
+}
+
+li {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+  li:last-child {
+    border-bottom: none;
+  }
+
+  li:nth-child(even) {
+    background: #f8f8f8;
+  }
