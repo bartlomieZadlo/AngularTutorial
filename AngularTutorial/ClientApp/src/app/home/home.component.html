@@ -1,10 +1,10 @@
-<h1 [ngClass]="{
-    'gray' : h1Style,
-    'large' : !h1Style
-    }">Home</h1>
 
 <button (click)="firstClick()">Click me</button>
-<ul>
-  <li (click)="sendData($event)" *ngFor="let process of processes" id="{{process.id}}">{{process.id}} {{process.name}}</li>
-</ul>
+
+<table class="table-striped table-bordered">
+  <tr (click)="sendData($event)" *ngFor="let process of processes" id="{{process.id}}">
+    <td>{{process.id}}</td>
+    <td>{{process.name}}</td>
+  </tr>
+</table>
 
