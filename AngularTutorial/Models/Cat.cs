@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AngularTutorial.Models
 {
-    public class Cat
+    public class SimplifiedProcess
     {
         public string Name{get; set;}
     }

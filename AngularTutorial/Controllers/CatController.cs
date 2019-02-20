@@ -31,23 +31,17 @@ namespace AngularTutorial.Controllers
             return new DetailedProcess(proccess);
         }
 
-        [HttpPost]
-        public Cat Insert([FromBody]Cat cat)
+        [HttpPost("{processName}")]
+        public void Insert(string processName)
         {
-            // write the new cat to database
-            return cat;
+             
+            Process.Start(processName);
+          
         }
 
-        [HttpPut("{name}")]
-        public Cat Update(string name, [FromBody]Cat cat)
-        {
-            cat.Name = name;
-            // write the updated cat to database
-            return cat;
-        }
 
-        [HttpDelete("{name}")]
-        public void Delete(string name)
+        [HttpDelete("{processName}")]
+        public void Delete(string processName)
         {
             // delete the cat from the database
 
@@ -83,7 +77,7 @@ namespace AngularTutorial.Controllers
                 Threads = process.Threads.ToString();
                 ProcessorTime = GetCPUUsage(process);
                 RunTime = (DateTime.Now - process.StartTime).ToString();
-                MemoryUsage = ((double)process.PrivateMemorySize64 / 1024 / 1024).ToString("0.0") + " MB";
+                MemoryUsage = (GetProcessMemoryInMb(process)).ToString("0.0") + " MB";
             }
             catch (System.ComponentModel.Win32Exception e)
             {
@@ -97,6 +91,12 @@ namespace AngularTutorial.Controllers
 
             
         }
+
+        private double GetProcessMemoryInMb(Process process)
+        {
+            return process.PrivateMemorySize64 / 1048576.0;
+        }
+
         private string GetCPUUsage(Process process)
         {
             DateTime lastTime = DateTime.Now;
