@@ -3,7 +3,7 @@ using AngularTutorial.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System;
-
+using System.Threading;
 
 namespace AngularTutorial.Controllers
 {
@@ -81,7 +81,7 @@ namespace AngularTutorial.Controllers
             {
                 StartTime = process.StartTime.ToString("dd/MM/yyyy HH:mm:ss");
                 Threads = process.Threads.ToString();
-                ProcessorTime = process.TotalProcessorTime.ToString();
+                ProcessorTime = GetCPUUsage(process);
                 RunTime = (DateTime.Now - process.StartTime).ToString();
                 MemoryUsage = ((double)process.PrivateMemorySize64 / 1024 / 1024).ToString("0.0") + " MB";
             }
@@ -95,7 +95,26 @@ namespace AngularTutorial.Controllers
                 MemoryUsage = "";
             }
 
+            
         }
+        private string GetCPUUsage(Process process)
+        {
+            DateTime lastTime = DateTime.Now;
+            TimeSpan lastTotalProcessorTime = process.TotalProcessorTime;
+
+
+            Thread.Sleep(500);
+
+            DateTime curTime = DateTime.Now;
+            TimeSpan curTotalProcessorTime = process.TotalProcessorTime;
+
+            double CPUUsage = (curTotalProcessorTime.TotalMilliseconds - lastTotalProcessorTime.TotalMilliseconds) / curTime.Subtract(lastTime).TotalMilliseconds / Convert.ToDouble(Environment.ProcessorCount);
+
+            return (CPUUsage*100).ToString("0.00") + " %";
+        }
+
+
+
 
     }
 
