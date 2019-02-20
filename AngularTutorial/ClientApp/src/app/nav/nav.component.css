@@ -1,5 +1,7 @@
 header {
-  background-color: #7700FF;
+  background-color: black;
+  margin-left:160px;
+  margin-bottom:20px;
 }
 
 .flex-container {
