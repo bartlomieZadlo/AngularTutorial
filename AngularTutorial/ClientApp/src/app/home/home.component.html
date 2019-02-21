@@ -24,7 +24,7 @@
 
   <div class="col-sm-6">
     <div class="detail-view" *ngIf="!specificProcess">
-      <p class="p-5">Click the specified process in the table to view its details.</p>
+      <p class="pt-5">Click the specified process in the table to view its details.</p>
     </div>
     <div class="detail-view" *ngIf="specificProcess">
       <h3> Details of process: </h3>
@@ -61,6 +61,15 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div *ngIf="specificProcess">
+      <h3>Add comment to process:</h3>
+      <form>
+        <div class="form-group">
+          <textarea class="form-control" rows="3" name="comment" placeholder="write comment"></textarea>
+        </div>
+        <input class="btn btn-info " type="submit" value="Submit">
+      </form>
     </div>
   </div>
 </div>
