@@ -64,8 +64,8 @@ namespace AngularTutorial.Controllers
     public class DetailedProcess : SimplifiedProcess
     {
         public string StartTime { get; set; }
-        public string Threads { get; set; }
-        public string ProcessorTime { get; set; }
+        public string NumberOfThreads { get; set; }
+        public string CPUusage { get; set; }
         public string RunTime { get; set; }
         public string MemoryUsage { get; set; }
 
@@ -74,8 +74,8 @@ namespace AngularTutorial.Controllers
             try
             {
                 StartTime = process.StartTime.ToString("dd/MM/yyyy HH:mm:ss");
-                Threads = process.Threads.ToString();
-                ProcessorTime = GetCPUUsage(process);
+                NumberOfThreads = GetNumberOfThreads(process);
+                CPUusage = GetCPUUsage(process);
                 RunTime = (DateTime.Now - process.StartTime).ToString();
                 MemoryUsage = (GetProcessMemoryInMb(process)).ToString("0.0") + " MB";
             }
@@ -84,12 +84,19 @@ namespace AngularTutorial.Controllers
                 Name = e.Message;
                 Id = 0;
                 StartTime = "";
-                ProcessorTime = "";
+                CPUusage = "";
                 RunTime = "";
                 MemoryUsage = "";
+                NumberOfThreads = "";
             }
 
 
+        }
+
+        private string GetNumberOfThreads(Process process)
+        {
+            int threadsNumber = process.Threads.Count;
+            return threadsNumber.ToString();
         }
 
         private double GetProcessMemoryInMb(Process process)
