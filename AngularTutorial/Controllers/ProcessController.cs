@@ -40,7 +40,16 @@ namespace AngularTutorial.Controllers
         [HttpDelete("{processId}")]
         public void DeleteProcessById(string processId)
         {
-            Process.GetProcessById(int.Parse(processId)).Kill();
+            try
+            {
+                Process.GetProcessById(int.Parse(processId)).Kill();
+            }
+            catch (System.ComponentModel.Win32Exception e)
+            {
+                Console.WriteLine("ACCESS DENIED" + e.Message);
+                Console.ReadLine();
+            }
+           
         }
 
     }
