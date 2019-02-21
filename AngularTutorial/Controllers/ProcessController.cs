@@ -7,15 +7,15 @@ using System.Threading;
 namespace AngularTutorial.Controllers
 {
     [Route("api/[controller]")]
-    public class CatController : Controller
+    public class ProcessController : Controller
     {
         [HttpGet]
-        public IEnumerable<SimplifiedProcess> GetCats()
+        public IEnumerable<SimplifiedProcess> GetProc()
         {
-            Process[] localAll = Process.GetProcesses();
-            SimplifiedProcess[] toReturn = new SimplifiedProcess[localAll.Length];
+            Process[] allLocalProcesses = Process.GetProcesses();
+            SimplifiedProcess[] toReturn = new SimplifiedProcess[allLocalProcesses.Length];
             int counter = 0;
-            foreach (Process process in localAll)
+            foreach (Process process in allLocalProcesses)
             {
                 toReturn[counter] = new SimplifiedProcess(process);
                 counter++;
@@ -31,19 +31,16 @@ namespace AngularTutorial.Controllers
         }
 
         [HttpPost("{processName}")]
-        public void Insert(string processName)
+        public void StartNewProcess(string processName)
         {
-
-            Process.Start(processName);
-
+            Process.Start(new ProcessStartInfo("cmd", $"/c start {processName}") { CreateNoWindow = true });
         }
 
 
-        [HttpDelete("{processName}")]
-        public void Delete(string processName)
+        [HttpDelete("{processId}")]
+        public void DeleteProcessById(string processId)
         {
-            // delete the cat from the database
-
+            Process.GetProcessById(int.Parse(processId)).Kill();
         }
 
     }
