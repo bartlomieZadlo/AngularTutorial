@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  firstClick() {
+  getProcessess() {
     this.apiClient.get<Process[]>(this.baseUrl + 'api/Process/').subscribe(result => {
       console.log("Refreshing");
       this.processes = result;
@@ -54,9 +54,14 @@ export class HomeComponent implements OnInit {
 
   kill(id: string) {
     this.processId = 'api/Process/' + id
-    console.log(id);
     this.apiClient.delete(this.baseUrl + this.processId).subscribe(result => {
-      console.log("KILLLLL " + event);
+    }, error => console.error(error));
+  }
+
+  startProcess() {
+    let processName = prompt("Please specify process name");
+    let query = 'api/Process/' + processName;
+    this.apiClient.post(this.baseUrl + query, "emptyBody").subscribe(result => {
     }, error => console.error(error));
   }
 }

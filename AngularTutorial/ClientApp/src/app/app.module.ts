@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProcessesComponent } from './home/processes/processes.component';
 import { ProcessDetailsComponent } from './home/processdetails/processdetails.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,7 @@ import { ProcessDetailsComponent } from './home/processdetails/processdetails.co
     ContactComponent,
     HomeComponent,
     ProcessesComponent,
-    ProcessDetailsComponent
+    ProcessDetailsComponent,
   ],
   imports: [
     BrowserModule,
