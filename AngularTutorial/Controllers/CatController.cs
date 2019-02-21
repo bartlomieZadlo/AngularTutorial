@@ -3,6 +3,7 @@ using AngularTutorial.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System;
+using System.Threading;
 
 namespace AngularTutorial.Controllers
 {
@@ -30,23 +31,17 @@ namespace AngularTutorial.Controllers
             return new DetailedProcess(proccess);
         }
 
-        [HttpPost]
-        public Cat Insert([FromBody]Cat cat)
+        [HttpPost("{processName}")]
+        public void Insert(string processName)
         {
-            // write the new cat to database
-            return cat;
+
+            Process.Start(processName);
+
         }
 
-        [HttpPut("{name}")]
-        public Cat Update(string name, [FromBody]Cat cat)
-        {
-            cat.Name = name;
-            // write the updated cat to database
-            return cat;
-        }
 
-        [HttpDelete("{name}")]
-        public void Delete(string name)
+        [HttpDelete("{processName}")]
+        public void Delete(string processName)
         {
             // delete the cat from the database
 
@@ -66,7 +61,7 @@ namespace AngularTutorial.Controllers
         }
     }
 
-    public class DetailedProcess: SimplifiedProcess
+    public class DetailedProcess : SimplifiedProcess
     {
         public string StartTime { get; set; }
         public string Threads { get; set; }
@@ -76,15 +71,46 @@ namespace AngularTutorial.Controllers
 
         public DetailedProcess(Process process) : base(process)
         {
-            StartTime = process.StartTime.ToString("dd/MM/yyyy HH:mm:ss");
-            Threads = process.Threads.ToString();
-            ProcessorTime = process.TotalProcessorTime.ToString();
-            RunTime = (DateTime.Now - process.StartTime).ToString();
-            MemoryUsage = ((double)process.PrivateMemorySize64/1024/1024).ToString("0.0") + " MB";
+            try
+            {
+                StartTime = process.StartTime.ToString("dd/MM/yyyy HH:mm:ss");
+                Threads = process.Threads.ToString();
+                ProcessorTime = GetCPUUsage(process);
+                RunTime = (DateTime.Now - process.StartTime).ToString();
+                MemoryUsage = (GetProcessMemoryInMb(process)).ToString("0.0") + " MB";
+            }
+            catch (System.ComponentModel.Win32Exception e)
+            {
+                Name = e.Message;
+                Id = 0;
+                StartTime = "";
+                ProcessorTime = "";
+                RunTime = "";
+                MemoryUsage = "";
+            }
+
+
         }
 
+        private double GetProcessMemoryInMb(Process process)
+        {
+            return process.PrivateMemorySize64 / 1048576.0;
+        }
+
+        private string GetCPUUsage(Process process)
+        {
+            DateTime lastTime = DateTime.Now;
+            TimeSpan lastTotalProcessorTime = process.TotalProcessorTime;
+
+
+            Thread.Sleep(500);
+
+            DateTime curTime = DateTime.Now;
+            TimeSpan curTotalProcessorTime = process.TotalProcessorTime;
+
+            double CPUUsage = (curTotalProcessorTime.TotalMilliseconds - lastTotalProcessorTime.TotalMilliseconds) / curTime.Subtract(lastTime).TotalMilliseconds / Convert.ToDouble(Environment.ProcessorCount);
+
+            return (CPUUsage * 100).ToString("0.00") + " %";
+        }
     }
-
-    
 }
-
