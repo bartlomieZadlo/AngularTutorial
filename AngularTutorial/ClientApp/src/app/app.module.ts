@@ -9,6 +9,7 @@ import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProcessesComponent } from './home/processes/processes.component';
+import { ProcessDetailsComponent } from './home/processdetails/processdetails.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ProcessesComponent } from './home/processes/processes.component';
     AboutComponent,
     ContactComponent,
     HomeComponent,
-    ProcessesComponent
+    ProcessesComponent,
+    ProcessDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -26,38 +26,35 @@ export class HomeComponent implements OnInit {
   }
 
   firstClick() {
-    this.apiClient.get<Process[]>(this.baseUrl + 'api/Cat/').subscribe(result => {
+    this.apiClient.get<Process[]>(this.baseUrl + 'api/Process/').subscribe(result => {
       console.log("Refreshing");
       this.processes = result;
     }, error => console.error(error));
   }
 
   sendData(event: any) {
-
-    console.log(event);
-    this.processId = 'api/Cat/' + event;
+    
+    this.processId = 'api/Process/' + event;
 
     this.apiClient.get<DetailedProcess>(this.baseUrl + this.processId).subscribe(result => {
       console.log("Sending detailed info about process " + event);
       console.log(result);
       this.specificProcess = result;
-      this.activeComment = localStorage.getItem(result.id);
+      this.activeComment = localStorage.getItem(result.id.toString());
 
-      let actualForm = document.createElement("textarea");
-      actualForm.setAttribute('class', 'form-control');
-      actualForm.setAttribute('rows', '3');
-      actualForm.setAttribute('name', 'comment');
-      actualForm.setAttribute('placeholder', 'Write a comment');
-      actualForm.setAttribute('id', 'comment-holder');
-      actualForm.value = this.activeComment;
-      document.getElementById('comment-holder').removeChild(document.getElementById('comment-holder').lastChild);
-      document.getElementById('comment-holder').append(actualForm);
+     
     }, error => console.error(error));
   }
 
 
   saveComment(name: string) {
+    console.log(name);
+    this.activeComment = name;
     localStorage.setItem(this.specificProcess.id.toString(), name);
+  }
+
+  kill(name: string) {
+    console.log(name);
   }
 }
 
@@ -67,7 +64,7 @@ export interface Process {
 }
 
 export interface DetailedProcess {
-  Id: number;
+  id: number;
   ProcessName: string;
   StartTime: string;
   CPUUsage: string;

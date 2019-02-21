@@ -4,3 +4,7 @@
   overflow-y: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+
+td{
+  cursor: pointer;
+}

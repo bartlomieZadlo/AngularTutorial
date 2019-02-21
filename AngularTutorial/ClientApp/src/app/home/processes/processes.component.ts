@@ -17,6 +17,7 @@ export class ProcessesComponent implements OnInit {
   constructor() { }
 
   sendIdBack(id: string) {
+    
     this.send.emit(id)
   }
 
