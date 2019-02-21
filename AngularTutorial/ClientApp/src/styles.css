@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+.main-container {
+  margin-top: 120px;
+}
+
+.justify-space {
+  justify-content: space-between
+}
+

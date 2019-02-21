@@ -25,10 +25,10 @@ namespace AngularTutorial.Controllers
         }
 
         [HttpGet("{id}")]
-        public DetailedProcess Get(string id)
+        public SimplifiedProcess Get(string id)
         {
             Process proccess = Process.GetProcessById(int.Parse(id));
-            return new DetailedProcess(proccess);
+            return new SimplifiedProcess(proccess);
         }
 
         [HttpPost("{processName}")]
@@ -66,8 +66,6 @@ namespace AngularTutorial.Controllers
         public string StartTime { get; set; }
         public string Threads { get; set; }
         public string ProcessorTime { get; set; }
-        public string RunTime { get; set; }
-        public string MemoryUsage { get; set; }
 
         public DetailedProcess(Process process) : base(process)
         {
@@ -111,6 +109,7 @@ namespace AngularTutorial.Controllers
             double CPUUsage = (curTotalProcessorTime.TotalMilliseconds - lastTotalProcessorTime.TotalMilliseconds) / curTime.Subtract(lastTime).TotalMilliseconds / Convert.ToDouble(Environment.ProcessorCount);
 
             return (CPUUsage*100).ToString("0.00") + " %";
+
         }
 
 
