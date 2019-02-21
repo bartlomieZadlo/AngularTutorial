@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using AngularTutorial.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System;
@@ -76,7 +75,7 @@ namespace AngularTutorial.Controllers
                 StartTime = process.StartTime.ToString("dd/MM/yyyy HH:mm:ss");
                 NumberOfThreads = GetNumberOfThreads(process);
                 CPUUsage = GetCPUUsage(process);
-                RunTime = (DateTime.Now - process.StartTime).ToString();
+                RunTime = GetProcessRunTime(process);
                 MemoryUsage = (GetProcessMemoryInMb(process)).ToString("0.0") + " MB";
             }
             catch (System.ComponentModel.Win32Exception e)
@@ -91,6 +90,12 @@ namespace AngularTutorial.Controllers
             }
 
 
+        }
+
+        private string GetProcessRunTime(Process process)
+        {
+            TimeSpan processRunTime = DateTime.Now - process.StartTime;
+            return string.Format("{0:D2}:{1:D2}:{2:D2}", processRunTime.Hours, processRunTime.Minutes, processRunTime.Seconds); ;
         }
 
         private string GetNumberOfThreads(Process process)
@@ -108,7 +113,6 @@ namespace AngularTutorial.Controllers
         {
             DateTime lastTime = DateTime.Now;
             TimeSpan lastTotalProcessorTime = process.TotalProcessorTime;
-
 
             Thread.Sleep(500);
 
