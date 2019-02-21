@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Process } from './home.component';
-import { DOCUMENT } from '@angular/common';
+
 
 @Component({
   selector: 'app-home',
