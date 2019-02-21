@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using AngularTutorial.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System;
@@ -65,7 +64,7 @@ namespace AngularTutorial.Controllers
     {
         public string StartTime { get; set; }
         public string NumberOfThreads { get; set; }
-        public string CPUusage { get; set; }
+        public string CPUUsage { get; set; }
         public string RunTime { get; set; }
         public string MemoryUsage { get; set; }
 
@@ -75,8 +74,8 @@ namespace AngularTutorial.Controllers
             {
                 StartTime = process.StartTime.ToString("dd/MM/yyyy HH:mm:ss");
                 NumberOfThreads = GetNumberOfThreads(process);
-                CPUusage = GetCPUUsage(process);
-                RunTime = (DateTime.Now - process.StartTime).ToString();
+                CPUUsage = GetCPUUsage(process);
+                RunTime = GetProcessRunTime(process);
                 MemoryUsage = (GetProcessMemoryInMb(process)).ToString("0.0") + " MB";
             }
             catch (System.ComponentModel.Win32Exception e)
@@ -84,13 +83,19 @@ namespace AngularTutorial.Controllers
                 Name = e.Message;
                 Id = 0;
                 StartTime = "";
-                CPUusage = "";
+                CPUUsage = "";
                 RunTime = "";
                 MemoryUsage = "";
                 NumberOfThreads = "";
             }
 
 
+        }
+
+        private string GetProcessRunTime(Process process)
+        {
+            TimeSpan processRunTime = DateTime.Now - process.StartTime;
+            return string.Format("{0:D2}:{1:D2}:{2:D2}", processRunTime.Hours, processRunTime.Minutes, processRunTime.Seconds); ;
         }
 
         private string GetNumberOfThreads(Process process)
@@ -108,7 +113,6 @@ namespace AngularTutorial.Controllers
         {
             DateTime lastTime = DateTime.Now;
             TimeSpan lastTotalProcessorTime = process.TotalProcessorTime;
-
 
             Thread.Sleep(500);
 
