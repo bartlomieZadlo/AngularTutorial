@@ -59,8 +59,8 @@ export interface DetailedProcess {
   Id: number;
   ProcessName: string;
   StartTime: string;
-  ProcessorTime: string;
-  Threads: string;
+  CPUUsage: string;
+  NumberOfThreads: string;
   RunTime: string;
   MemoryUsage: string;
 }
