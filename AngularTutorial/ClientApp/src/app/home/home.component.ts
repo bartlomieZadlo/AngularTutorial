@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   apiClient: HttpClient;
   baseUrl: string;
   processId: string;
-  processComment: string;
+  activeComment: string;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.apiClient = http;
@@ -40,13 +40,23 @@ export class HomeComponent implements OnInit {
       console.log("Sending detailed info about process " + event.path[0].id);
       console.log(result);
       this.specificProcess = result;
-      this.processComment = localStorage.getItem(this.specificProcess.id.toString());
+      this.activeComment = localStorage.getItem(result.id);
+
+      let actualForm = document.createElement("textarea");
+      actualForm.setAttribute('class', 'form-control');
+      actualForm.setAttribute('rows', '3');
+      actualForm.setAttribute('name', 'comment');
+      actualForm.setAttribute('placeholder', 'Write a comment');
+      actualForm.setAttribute('id', 'comment-holder');
+      actualForm.value = this.activeComment;
+      document.getElementById('comment-holder').removeChild(document.getElementById('comment-holder').lastChild);
+      document.getElementById('comment-holder').append(actualForm);
     }, error => console.error(error));
   }
 
+
   saveComment(name: string) {
-    localStorage.setItem(this.specificProcess.id.toString(), name.trim());
-    document.getElementById("commentholder").innerHTML = this.processComment;
+    localStorage.setItem(this.specificProcess.id.toString(), name);
   }
 }
 
