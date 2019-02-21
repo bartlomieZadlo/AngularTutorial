@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Process } from './home.component';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit {
   apiClient: HttpClient;
   baseUrl: string;
   processId: string;
+  processComment: string;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.apiClient = http;
@@ -33,12 +35,18 @@ export class HomeComponent implements OnInit {
   sendData(event: any) {
 
     this.processId = 'api/Cat/' + event.path[0].id;
-
+    
     this.apiClient.get<DetailedProcess>(this.baseUrl + this.processId).subscribe(result => {
       console.log("Sending detailed info about process " + event.path[0].id);
       console.log(result);
       this.specificProcess = result;
+      this.processComment = localStorage.getItem(this.specificProcess.id.toString());
     }, error => console.error(error));
+  }
+
+  saveComment(name: string) {
+    localStorage.setItem(this.specificProcess.id.toString(), name.trim());
+    document.getElementById("commentholder").innerHTML = this.processComment;
   }
 }
 
