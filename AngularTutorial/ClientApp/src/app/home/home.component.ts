@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
 
     this.apiClient.get<DetailedProcess>(this.baseUrl + this.processId).subscribe(result => {
       console.log("Sending detailed info about process " + event);
-      console.log(result);
+      
       this.specificProcess = result;
       this.activeComment = localStorage.getItem(result.id.toString());
 
@@ -48,13 +48,16 @@ export class HomeComponent implements OnInit {
 
 
   saveComment(name: string) {
-    console.log(name);
     this.activeComment = name;
     localStorage.setItem(this.specificProcess.id.toString(), name);
   }
 
-  kill(name: string) {
-    console.log(name);
+  kill(id: string) {
+    this.processId = 'api/Process/' + id
+    console.log(id);
+    this.apiClient.delete(this.baseUrl + this.processId).subscribe(result => {
+      console.log("KILLLLL " + event);
+    }, error => console.error(error));
   }
 }
 
