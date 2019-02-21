@@ -1,10 +1,1 @@
-.table-wrapper-scroll-y {
-  display: block;
-  max-height: 67vh;
-  overflow-y: auto;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-}
 
-.detail-view {
-  height: 50vh
-}

@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Process } from './home.component';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit {
   apiClient: HttpClient;
   baseUrl: string;
   processId: string;
+  activeComment: string;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.apiClient = http;
@@ -32,13 +34,30 @@ export class HomeComponent implements OnInit {
 
   sendData(event: any) {
 
-    this.processId = 'api/Cat/' + event.path[0].id;
+    console.log(event);
+    this.processId = 'api/Cat/' + event;
 
     this.apiClient.get<DetailedProcess>(this.baseUrl + this.processId).subscribe(result => {
-      console.log("Sending detailed info about process " + event.path[0].id);
+      console.log("Sending detailed info about process " + event);
       console.log(result);
       this.specificProcess = result;
+      this.activeComment = localStorage.getItem(result.id);
+
+      let actualForm = document.createElement("textarea");
+      actualForm.setAttribute('class', 'form-control');
+      actualForm.setAttribute('rows', '3');
+      actualForm.setAttribute('name', 'comment');
+      actualForm.setAttribute('placeholder', 'Write a comment');
+      actualForm.setAttribute('id', 'comment-holder');
+      actualForm.value = this.activeComment;
+      document.getElementById('comment-holder').removeChild(document.getElementById('comment-holder').lastChild);
+      document.getElementById('comment-holder').append(actualForm);
     }, error => console.error(error));
+  }
+
+
+  saveComment(name: string) {
+    localStorage.setItem(this.specificProcess.id.toString(), name);
   }
 }
 
