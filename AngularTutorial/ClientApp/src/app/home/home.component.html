@@ -4,22 +4,7 @@
       <h3> All processes: </h3>
       <button (click)="firstClick()" class="btn btn-info float-right">Refresh list</button>
     </div>
-    <div class="table-wrapper-scroll-y">
-      <table class="table table-striped table-sm">
-        <thead class="thead-dark">
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let process of processes">
-            <td (click)="sendData($event)" id="{{process.id}}">{{ process.id }}</td>
-            <td (click)="sendData($event)" id="{{process.id}}">{{ process.name }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <app-processes [processes]='processes' (send)="sendData($event)"></app-processes>
   </div>
 
   <div class="col-sm-6 mt-2">

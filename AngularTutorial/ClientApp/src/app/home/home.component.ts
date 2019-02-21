@@ -32,10 +32,11 @@ export class HomeComponent implements OnInit {
 
   sendData(event: any) {
 
-    this.processId = 'api/Cat/' + event.path[0].id;
+    console.log(event);
+    this.processId = 'api/Cat/' + event;
 
     this.apiClient.get<DetailedProcess>(this.baseUrl + this.processId).subscribe(result => {
-      console.log("Sending detailed info about process " + event.path[0].id);
+      console.log("Sending detailed info about process " + event);
       console.log(result);
       this.specificProcess = result;
     }, error => console.error(error));
