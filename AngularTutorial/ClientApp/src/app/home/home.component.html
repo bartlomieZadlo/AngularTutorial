@@ -40,24 +40,24 @@
             <td>{{ specificProcess.id }}</td>
           </tr>
           <tr>
-            <th scope="row">Start Time </th>
+            <th scope="row">CPU usage </th>
+            <td>{{ specificProcess.cpuUsage }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Memory usage </th>
+            <td>{{ specificProcess.memoryUsage }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Start time </th>
             <td>{{ specificProcess.startTime }}</td>
-          </tr>
-          <tr>
-            <th scope="row">Processor Time </th>
-            <td>{{ specificProcess.processorTime }}</td>
-          </tr>
-          <tr>
-            <th scope="row">Threads </th>
-            <td>{{ specificProcess.threads }}</td>
           </tr>
           <tr>
             <th scope="row">Runtime </th>
             <td>{{ specificProcess.runTime }}</td>
           </tr>
           <tr>
-            <th scope="row">Memory Usage </th>
-            <td>{{ specificProcess.memoryUsage }}</td>
+            <th scope="row">Number of threads </th>
+            <td>{{ specificProcess.numberOfThreads }}</td>
           </tr>
         </tbody>
       </table>

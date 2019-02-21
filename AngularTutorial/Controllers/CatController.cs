@@ -65,7 +65,7 @@ namespace AngularTutorial.Controllers
     {
         public string StartTime { get; set; }
         public string NumberOfThreads { get; set; }
-        public string CPUusage { get; set; }
+        public string CPUUsage { get; set; }
         public string RunTime { get; set; }
         public string MemoryUsage { get; set; }
 
@@ -75,7 +75,7 @@ namespace AngularTutorial.Controllers
             {
                 StartTime = process.StartTime.ToString("dd/MM/yyyy HH:mm:ss");
                 NumberOfThreads = GetNumberOfThreads(process);
-                CPUusage = GetCPUUsage(process);
+                CPUUsage = GetCPUUsage(process);
                 RunTime = (DateTime.Now - process.StartTime).ToString();
                 MemoryUsage = (GetProcessMemoryInMb(process)).ToString("0.0") + " MB";
             }
@@ -84,7 +84,7 @@ namespace AngularTutorial.Controllers
                 Name = e.Message;
                 Id = 0;
                 StartTime = "";
-                CPUusage = "";
+                CPUUsage = "";
                 RunTime = "";
                 MemoryUsage = "";
                 NumberOfThreads = "";
