@@ -51,7 +51,7 @@ namespace AngularTutorial.Models
         private string GetProcessRunTime(Process process)
         {
             TimeSpan processRunTime = DateTime.Now - process.StartTime;
-            return string.Format("{0:D2}:{1:D2}:{2:D2}", processRunTime.Hours, processRunTime.Minutes, processRunTime.Seconds); ;
+            return string.Format("{0:D3} days {1:D2}:{2:D2}:{3:D2}", processRunTime.Days, processRunTime.Hours, processRunTime.Minutes, processRunTime.Seconds); ;
         }
 
         private string GetNumberOfThreads(Process process)
